@@ -1,189 +1,297 @@
-# TTS.py
-با اجرا کردن این دو فایل
-۱.متن به هر زبانی داده شود به زبان فارسی صدا شنیده خواهد شد.(چون گفتار سیستم پیش فرض فارسی هست)
+Text-to-Speech Translation
 
-مثال:
--متن: Bonjour
-صدایی که می شنوید :
-سلام
+Overview
 
-۲.متن به زبان فارسی داده شود و کاربر نوع زبان گفتار را انتخاب کند متن به زبان گفتار مدنظر کاربر شنیده میشه 
-مثال: 
-متن -سلام 
-کاربر تمایل دارد پاسخش به فرانسه شنیده بشه در نتیجه Bonjour پخش میشه.
+This project is a text-to-speech translation application that utilizes:
 
+Text translation (using pre-trained translation M2M100 model)
 
+Text-to-speech conversion (via Microsoft Edge TTS)
 
-۳.
-متن به هر زبانی داده شود و کاربر نوع زبان گفتار را انتخاب کند متن به زبان گفتار مدنظر کاربر شنیده می شود .
-مثال :فرض کنید کاربر متن به زبان فرانسه وارد کرده و تمایل دارد پاسخش به زبان انگلیسی باشد.
--متن: Bonjour
-صدایی که می شنوید: Hello
-۴‌.متن به هر زبانی داده شود و کاربر نوع زبان گفتار را انتخاب نکند یا اشتباه انتخاب کند متن به زبان فارسی شنیده می شود.
-مثال
-متن-hello
+Language detection It allows translating text into various languages and converting it into speech.
 
-کاربر نوع زبان گفتار را اشتباه انتخاب کرده 
-صدایی که پخش می شود: سلام
+Features
 
+Translate text into multiple languages (Persian, English, French, German, Italian ... .)
 
+Convert translated text to audio files and play them automatically
 
-لازم است فایل های زیر
-main.py
+Automatically detect the input text language
 
-textToSpeech.py
+Choose the target language for speech output
 
-playing_anonymized_sound.py
+Download the generated audio file to the Downloads folder
 
-audio_conversion.py
+Requirements
 
-audio_anonymization.py
+To run this project, you need:
 
-anonymize_voice_Main.py
+Python 3.8+
 
-voice_processing(1).py
+Required libraries:
 
+pip install edge-tts nest_asyncio pygame langdetect
 
+Translation models located in the path: (https://huggingface.co/facebook/m2m100_418M/tree/main)
 
-در یک پوشه ذخیره شوند در ادامه لازم هست فایل ها به ترتیب 
-در محیط pycharm ،اجرا شوند .
-main.py
+How to Use
 
-textToSpeech.py
+Run the Application
 
-playing_anonymized_sound.py
+    Clone the repository:
 
-audio_conversion.py
+git clone cd
 
-audio_anonymization.py
+    Run the textToSpeech.py file:
 
-anonymize_voice_Main.py
+python textToSpeech.py
 
-voice_processing(1).py
+Input
 
+Enter text as input (e.g., "Elle regarde la télévision tous les soirs.").
 
+Output
 
-در یک پوشه ذخیره شوند در ادامه لازم هست فایل ها به ترتیب 
-در محیط pycharm ،اجرا شوند .
+The translated text in your chosen language.
 
-برای استفاده لطفا مرحله ها رو کامل انجام بدید 
-1. مراجعه به لینک ذکر شده و دانلود فایل زیپ ffmpeg 
+An audio file named output_File.mp3 will be generated, played automatically, and saved in the Downloads folder.
 
-https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-n7.1-latest-win64-lgpl-7.1.zip
+Project Structure
 
-2.بعد از دانلود و استخراج فایل ZIP ffmpeg، مراحل زیر را دنبال کنید: 
-آ) استخراج فایل ZIP 
-فایل ZIP را باز کنید و تمام محتویات آن را در یک پوشه مشخص (مثلاً C:\ffmpeg) استخراج کنید.
+main.py: The main script to execute the application
 
+LanguageSelector: A class to select the target speech language
 
-ب) تنظیم PATH در ویندوز 
-برای این که ویندوز بتواند ffmpeg را شناسایی کند، باید مسیر آن را به متغیر محیطی PATH اضافه کنید: 
+LanguageDetector: A class to detect the language of the input text
 
-پ) پنجره تنظیمات سیستم را باز کنید: 
-روی دکمه Start کلیک کنید، سپس Control Panel را جستجو کنید و باز کنید. 
-یا می‌توانید روی دکمه Windows کلیک راست کنید و System را انتخاب کنید.
+TextToSpeechApp: A class to generate and manage the audio file
 
-ت) بر روی "Advanced system settings" کلیک کنید: 
-در سمت چپ پنجره، گزینه Advanced system settings را انتخاب کنید.
+Speech: A class to handle translation and speech output processes
 
-س)روی دکمه "Environment Variables" کلیک کنید: 
-در بخش System Properties، دکمه Environment Variables را بزنید.
+Examples
 
-ش) متغیر Path را ویرایش کنید: 
-در بخش System variables، متغیر Path را پیدا کنید و روی آن دوبار کلیک کنید یا Edit را بزنید. 
-سپس New را بزنید و مسیر پوشه bin را که داخل پوشه ffmpeg قرار دارد، وارد کنید. مثلاً: 
-C:\ffmpeg\bin
+Input:
 
-ص) تغییرات را ذخیره کنید: 
-روی OK کلیک کنید تا تمام پنجره‌ها بسته شوند.
+Elle regarde la télévision tous les soirs.
 
+Output:
 
-بررسی نصب 
-برای اطمینان از این که ffmpeg به درستی نصب شده است، مراحل زیر را انجام دهید: 
-1. Command Prompt را باز کنید: 
-روی دکمه Start کلیک کنید و cmd را جستجو کنید و باز کنید.
+    Detected language: French
 
-2. دستور زیر را وارد کنید: 
-ffmpeg -version 
-اگر نصب به درستی انجام شده باشد، اطلاعات نسخه ffmpeg نمایش داده می‌شود.
-1. مراجعه به لینک ذکر شده و دانلود فایل زیپ ffmpeg 
+    Translated text to Persian: او هر شب تلویزیون تماشا می‌کند.
 
-https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-n7.1-latest-win64-lgpl-7.1.zip
+    Audio file generated and played automatically.
 
-2.بعد از دانلود و استخراج فایل ZIP ffmpeg، مراحل زیر را دنبال کنید: 
-آ) استخراج فایل ZIP 
-فایل ZIP را باز کنید و تمام محتویات آن را در یک پوشه مشخص (مثلاً C:\ffmpeg) استخراج کنید.
+    When text is provided in any language, the speech will be in Persian (since the system's default speech is in Persian). Example:
 
+Text: Bonjour The voice you hear: Salam
 
-ب) تنظیم PATH در ویندوز 
-برای این که ویندوز بتواند ffmpeg را شناسایی کند، باید مسیر آن را به متغیر محیطی PATH اضافه کنید: 
+    When text is provided in Persian and the user selects the speech language, the response will be in the selected speech language. Example:
 
-پ) پنجره تنظیمات سیستم را باز کنید: 
-روی دکمه Start کلیک کنید، سپس Control Panel را جستجو کنید و باز کنید. 
-یا می‌توانید روی دکمه Windows کلیک راست کنید و System را انتخاب کنید.
+Text: Salam If the user wants to hear the response in French, it will play: Bonjour
 
-ت) بر روی "Advanced system settings" کلیک کنید: 
-در سمت چپ پنجره، گزینه Advanced system settings را انتخاب کنید.
+    When text is provided in any language, and the user selects the speech language, the response will be in the selected speech language. Example: Suppose the user enters text in French and wants to hear the response in English:
 
-س)روی دکمه "Environment Variables" کلیک کنید: 
-در بخش System Properties، دکمه Environment Variables را بزنید.
+Text: Bonjour The voice you hear: Hello
 
-ش) متغیر Path را ویرایش کنید: 
-در بخش System variables، متغیر Path را پیدا کنید و روی آن دوبار کلیک کنید یا Edit را بزنید. 
-سپس New را بزنید و مسیر پوشه bin را که داخل پوشه ffmpeg قرار دارد، وارد کنید. مثلاً: 
-C:\ffmpeg\bin
+    When text is provided in any language and the user does not select the speech language or selects it incorrectly, the speech will be in Persian. Example:
 
-ص) تغییرات را ذخیره کنید: 
-روی OK کلیک کنید تا تمام پنجره‌ها بسته شوند.
+Text: Hello If the user selects the wrong speech language: The voice you hear: Salam
 
+Error Handling
 
-بررسی نصب 
-برای اطمینان از این که ffmpeg به درستی نصب شده است، مراحل زیر را انجام دهید: 
-1. Command Prompt را باز کنید: 
-روی دکمه Start کلیک کنید و cmd را جستجو کنید و باز کنید.
+Possible Issues:
 
-2. دستور زیر را وارد کنید: 
-ffmpeg -version 
-اگر نصب به درستی انجام شده باشد، اطلاعات نسخه ffmpeg نمایش داده می‌شود.
-راهنمای استفاده از کد main.py:
+If the translation model is missing from the specified path, the program will not run.
 
-1. بعد از اینکه تمامی فایل های مربوط به مدل ترجمه را دانلود کردید .
+If the selected voice type is unavailable, the default voice (Persian) will be used.
+Multilingual Translation
 
+Overview
 
-2. تنظیم مسیر مدل: بعد از دانلود، مدل را در یک پوشه مشخص ذخیره کنید. سپس، مسیر این پوشه را پیدا کرده و آن را در قسمت model_path کد قرار دهید.
+This project is a simple and efficient multilingual translation tool built using:
 
-برای مثال راهنمای استفاده از کد main.py:
+Hugging Face Transformers (M2M100 model for multilingual translation)
 
-1. بعد از اینکه  تمامی فایل های مربوط به مدل ترجمه را دانلود کردید .
+Langdetect (for language detection)
 
+The application automatically detects the source language of the input text and translates it into the desired target language using the M2M100 translation model.
 
-2. تنظیم مسیر مدل: بعد از دانلود، مدل را در یک پوشه مشخص ذخیره کنید. سپس، مسیر این پوشه را پیدا کرده و آن را در قسمت model_path کد قرار دهید.
+Features
 
-برای مثال این 
+Automatic Language Detection: Detects the source language of the input text using langdetect.
 
-model_path = r"E:\University\master\mbaheseVijeh\project_AI\Translate_\Translate_Models\models"
+Multilingual Translation: Supports translation between multiple languages.
 
-مسیری هست که من مدل رو در سیستمم ذخیره کردم.
-بعد از اینکه ffmpeg با موفقیت نصب شد .
+Hugging Face Integration: Utilizes the M2M100 model for state-of-the-art translation.
 
-وارد pycharm 
-بشین
-از نوار بالا بر روی view کلیک کرده Tool Windows رو انتخاب کنید و بر روی گزینه Terminal کلیک کنید در ترمینال دستورات رو یکی یکی اجرا کنید
+Requirements
 
-1.pip install edge_tts
+Dependencies
 
-2. pip install pydub
+Install the required Python libraries:
 
-3. pip install --upgrade
+pip install transformers langdetect torch
 
-4.pip install ffmpeg_python
+Model Setup
 
-5. pip install nest_asyncio
+Download the M2M100 model and place it in the directory specified in the code:
 
-6. pip install pygame
+https://huggingface.co/facebook/m2m100_418M/tree/main
 
-🚫🚫7.pip install langdetect
-🚫🚫8.pip install transformers 
-🚫🚫9.pip install torch
-🚫🚫10.pip install sentencepiece
+How to Use
 
+Running the Script
+
+    Clone the repository:
+
+git clone cd
+
+    Run the script:
+
+python main.py
+
+Input
+
+Enter the target language code (e.g., en for English, fr for French, etc.).
+
+Provide the text to translate.
+
+Output
+
+The translated text will be displayed in the console.
+
+Code Overview
+
+Main Components
+
+    Translator Class:
+
+Loads the M2M100 model and tokenizer.
+
+Detects the source language of the text.
+
+Translates the text into the target language.
+
+    get_translation Function:
+
+Simplifies the translation process by initializing the Translator class and returning the translated text.
+
+    Script Execution:
+
+Prompts the user to input the target language and text.
+
+Displays the translation.
+
+Example
+
+Input:
+
+Target Language: en Text: Bonjour tout le monde.
+
+Output:
+
+Translation: Hello everyone.
+
+Customization
+
+Model Path: Update the model_path variable to point to the directory where your M2M100 model is stored.
+
+Target Language: Add or modify language codes supported by the M2M100 model.
+
+Error Handling
+
+Potential Issues
+
+    Language Detection Error:
+
+If langdetect fails, ensure the input text is long enough for reliable detection.
+
+    Model Path Error:
+
+Verify that the M2M100 model exists at the specified model_path.
+
+    Unsupported Language:
+
+Check if the target language is supported by the M2M100 model.
+Audio Anonymization and Conversion Toolkit
+
+A comprehensive toolset designed for audio file conversion, voice anonymization, and playback, focusing on seamless integration with Python-based audio processing libraries.
+
+Features
+
+    Audio Conversion: Convert between MP3 and WAV formats.
+    Voice Anonymization: Apply pitch shifting for anonymizing audio recordings.
+    Playback Support: Play anonymized audio files in MP3 format using pygame.
+    Modular Design: Extendable and reusable code structure for developers.
+
+Requirements To run this project, ensure that you have the following libraries installed:
+
+    Python 3.7 or higher
+    Required libraries:
+        librosa (for audio processing)
+        soundfile (for reading and writing WAV files)
+        pydub (for audio format conversion)
+        pygame (for audio playback)
+
+You can install the necessary dependencies by running:
+
+pip install -r requirements.txt
+
+Installation and Setup
+
+    Clone the Repository:
+
+git clone https://github.com/yourusername/audio-anonymization-toolkit.git cd audio-anonymization-toolkit
+
+    Install Dependencies: Create and activate a virtual environment, then install the required dependencies:
+
+pip install -r requirements.txt
+
+    Running the Project: To start processing audio files, run the following command:
+
+python anonymize_voice_Main.py
+
+Usage
+
+Convert and Anonymize Audio
+
+You can easily convert and anonymize MP3 files as follows:
+
+from main import process_audio
+
+Input and output MP3 file paths input_mp3_file = "input_file.mp3" output_mp3_file = "anonymized_output.mp3"
+
+Process the audio process_audio(input_mp3_file, output_mp3_file)
+
+Play Anonymized Audio
+
+To play the output audio, you can use the play_audio.py script:
+
+python play_audio.py
+
+Customizing the Anonymization
+
+You can modify the pitch_shift_steps parameter in the anonymize_voice function to adjust the degree of anonymization by pitch shifting.
+
+def anonymize_voice(input_file, output_file, pitch_shift_steps=4): """Applies pitch shifting to anonymize the audio.""" # Customize the pitch shift by changing the pitch_shift_steps
+
+Project Structure
+
+The project is organized as follows:
+
+├── audio_anonymization.py # Module responsible for voice anonymization
+
+├── audio_conversion.py # Module for converting between MP3 and WAV
+
+├── playing_anonymized_sound.py # Module to handle audio playback
+
+├── requirements.txt # List of required Python packages
+
+├── anonymize_voice_Main.py # Main entry point to process and convert audio
+
+Running Tests
+
+To verify the functionality of the project, run the main.py script, which will handle conversion, anonymization, and playback:
+
+python anonymize_voice_main.py
